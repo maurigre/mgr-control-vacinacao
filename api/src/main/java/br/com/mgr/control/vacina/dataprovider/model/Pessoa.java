@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,8 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ToString
 @Table(name = "pessoas_tbl")
-public class Pessoa {
-
+public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,5 @@ public class Pessoa {
     private Integer idade;
 
     private LocalDate dataNascimento;
-
 
 }
