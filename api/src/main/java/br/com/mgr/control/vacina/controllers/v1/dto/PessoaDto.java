@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
-
 public class PessoaDto extends RepresentationModel<PessoaDto>{
 
     private Long id;
@@ -38,4 +37,13 @@ public class PessoaDto extends RepresentationModel<PessoaDto>{
         return new ModelMapper().map(this, Pessoa.class);
     }
 
+    /**
+     * Method to convert an Pessoa entity to a Pessoa DTO.
+     * @return a <code>PessoaDto</code> object
+     */
+    public PessoaDto toPessoaDto(Pessoa pessoa) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(pessoa, this);
+        return this;
+    }
 }
