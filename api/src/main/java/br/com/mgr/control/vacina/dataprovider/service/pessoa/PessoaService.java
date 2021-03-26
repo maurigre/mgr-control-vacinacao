@@ -2,6 +2,7 @@ package br.com.mgr.control.vacina.dataprovider.service.pessoa;
 
 
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
+import br.com.mgr.control.vacina.exception.ApiException;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface PessoaService {
      * @param id
      * @return <code>Pessoa</code> Object
      */
-    Pessoa findById(Long id);
+    Pessoa findById(Long id) throws ApiException;
 
     /**
      * @return <code>List<Pessoa></code> Object

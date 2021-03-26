@@ -3,7 +3,7 @@ package br.com.mgr.control.vacina.dataprovider.service.pessoa.impl;
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dataprovider.repository.PessoaRepository;
 import br.com.mgr.control.vacina.dataprovider.service.pessoa.PessoaService;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
+import br.com.mgr.control.vacina.exception.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +30,8 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Pessoa findById(Long id) {
-        return repository.findById(id).orElseThrow();
+    public Pessoa findById(Long id) throws ApiException {
+        return repository.findById(id).orElseThrow(() -> new ApiException("Pessoa id=" + id + " not fopund"));
     }
 
     @Override
