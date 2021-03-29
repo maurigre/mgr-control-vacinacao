@@ -4,6 +4,7 @@ import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dataprovider.repository.PessoaRepository;
 import br.com.mgr.control.vacina.dataprovider.service.pessoa.PessoaService;
 import br.com.mgr.control.vacina.exception.ApiException;
+import br.com.mgr.control.vacina.exception.PessoaNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,8 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Pessoa findById(Long id) throws ApiException {
-        return repository.findById(id).orElseThrow(() -> new ApiException("Pessoa id=" + id + " not fopund"));
+    public Pessoa findById(Long id) throws PessoaNotFoundException{
+        return repository.findById(id).orElseThrow(() -> new PessoaNotFoundException(id));
     }
 
     @Override
