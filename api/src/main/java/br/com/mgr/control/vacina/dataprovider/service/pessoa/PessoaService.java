@@ -2,7 +2,6 @@ package br.com.mgr.control.vacina.dataprovider.service.pessoa;
 
 
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
-import br.com.mgr.control.vacina.exception.ApiException;
 import br.com.mgr.control.vacina.exception.PessoaNotFoundException;
 
 import java.util.List;

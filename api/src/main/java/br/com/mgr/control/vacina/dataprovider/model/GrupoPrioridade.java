@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(of = {"id", "nome"})
 @Table(name = "grupos_prioridades_tbl")
-public class GruposPrioridades {
+public class GrupoPrioridade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

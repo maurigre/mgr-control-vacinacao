@@ -1,11 +1,11 @@
-package br.com.mgr.control.vacina.error;
+package br.com.mgr.control.vacina.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ErrorObject {
+public class ResponseErrorValidField {
 
     private final String message;
     private final String field;

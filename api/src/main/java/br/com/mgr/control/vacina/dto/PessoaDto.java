@@ -1,5 +1,6 @@
-package br.com.mgr.control.vacina.controllers.v1.dto;
+package br.com.mgr.control.vacina.dto;
 
+import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -15,12 +16,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @ToString
-@NoArgsConstructor
 @EqualsAndHashCode
 public class PessoaDto extends RepresentationModel<PessoaDto>{
+
 
     private Long id;
 
@@ -48,6 +48,10 @@ public class PessoaDto extends RepresentationModel<PessoaDto>{
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "en-US", timezone = "Brazil/East")
     private LocalDate dataNascimento;
 
+
+    private Boolean isVacinada;
+
+    private GrupoPrioridade grupo;
 
     /**
      * Method to convert an Pessoa DTO to a Pessoa entity.

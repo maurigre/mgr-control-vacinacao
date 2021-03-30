@@ -3,7 +3,6 @@ package br.com.mgr.control.vacina.dataprovider.service.pessoa.impl;
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dataprovider.repository.PessoaRepository;
 import br.com.mgr.control.vacina.dataprovider.service.pessoa.PessoaService;
-import br.com.mgr.control.vacina.exception.ApiException;
 import br.com.mgr.control.vacina.exception.PessoaNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

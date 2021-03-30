@@ -34,4 +34,9 @@ public class Pessoa implements Serializable {
 
     private LocalDate dataNascimento;
 
+    private Boolean isVacinada;
+
+    @ManyToOne
+    @JoinColumn(name="id_grupo_prioridade")
+    private GruposPrioridades grupo;
 }

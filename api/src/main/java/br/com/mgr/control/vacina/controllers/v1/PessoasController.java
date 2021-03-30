@@ -1,22 +1,19 @@
 package br.com.mgr.control.vacina.controllers.v1;
 
-import br.com.mgr.control.vacina.controllers.v1.dto.PessoaDto;
-import br.com.mgr.control.vacina.controllers.v1.dto.response.Response;
+import br.com.mgr.control.vacina.dto.PessoaDto;
+import br.com.mgr.control.vacina.dto.response.Response;
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dataprovider.service.pessoa.PessoaService;
-import br.com.mgr.control.vacina.exception.ApiException;
+import br.com.mgr.control.vacina.exception.PessoaInvalidUpdateException;
 import br.com.mgr.control.vacina.exception.PessoaNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -34,21 +31,21 @@ public class PessoasController {
     private PessoaService pessoaService;
 
     @GetMapping
-    public ResponseEntity<List<PessoaDto>> findAllPessoas() {
+    public ResponseEntity<Response<List<PessoaDto>>> findAllPessoas() {
         List<Pessoa> pessoaList = pessoaService.findAll();
         List<PessoaDto> pessoaDtos = new ArrayList<>();
 
-        pessoaList.stream().forEach(pessoa -> pessoaDtos.add(new PessoaDto().toPessoaDto(pessoa)));
-        pessoaDtos.stream().forEach(dto -> {
-            Long id = dto.getId();
-            try {
-                dto.add(linkTo(methodOn(PessoasController.class).findByIdPessoa(id)).withSelfRel().expand());
-            } catch (PessoaNotFoundException e) {
-                e.printStackTrace();
-            }
+        pessoaList.stream().forEach(pessoa -> {
+            PessoaDto dto = new PessoaDto();
+            dto.toPessoaDto(pessoa)
+                    .add(linkTo(methodOn(PessoasController.class).findByIdPessoa(dto.getId()))
+                            .withSelfRel().expand());
+            pessoaDtos.add(dto);
         });
 
-        return new ResponseEntity<>(pessoaDtos, HttpStatus.OK);
+        Response<List<PessoaDto>> response = new Response<>();
+        response.setData(pessoaDtos);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -64,38 +61,51 @@ public class PessoasController {
 
     }
 
-
-    //Post
     @PostMapping
     public ResponseEntity<Response<PessoaDto>> create(@Valid @RequestBody PessoaDto dto) {
-
-        Response<PessoaDto> response = new Response<>();
-/*
-        if (result.hasErrors()) {
-            ArrayList<String> erroas = new ArrayList<>();
-            result.getAllErrors().forEach((error) -> erroas.add(error.getDefaultMessage()));
-            response.addErrorMsg(erroas.toString());
-
-            result.getFieldErrors().forEach((erros) -> System.out.println(erros.getField() + erros.getDefaultMessage()));
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }*/
         Pessoa pessoa = pessoaService.save(dto.toPessoa());
-        response.setData(new PessoaDto().toPessoaDto(pessoa));
+        Response<PessoaDto> response = new Response<>();
+        dto.add(linkTo(methodOn(PessoasController.class).findByIdPessoa(pessoa.getId())).withSelfRel().expand());
+        response.setData(dto.toPessoaDto(pessoa));
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Response<String>> delete(@PathVariable Long id) {
+        Response<String> response = new Response<>();
+
+        Pessoa pessoa = pessoaService.findById(id);
+        pessoaService.deleteById(pessoa.getId());
+        response.setData("Pessoa id="+ pessoa.getId() + " deleted");
+
+        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping
+    public ResponseEntity<Response<PessoaDto>> update(@Valid @RequestBody PessoaDto dto) {
+        Response<PessoaDto> response = new Response<>();
+
+        if(dto.getId() == null) {
+            throw new PessoaInvalidUpdateException(dto.getId());
+        }
+
+        Pessoa pessoaFind = pessoaService.findById(dto.getId());
+        if (pessoaFind.getId().compareTo(dto.getId()) != 0 ) {
+            throw new PessoaNotFoundException(dto.getId());
+        }
+
+        Pessoa pessoa = dto.toPessoa();
+        Pessoa pessoaUpdate = pessoaService.save(pessoa);
+
+        PessoaDto pessoaDto = new PessoaDto();
+        pessoaDto.toPessoaDto(pessoaUpdate);
+        pessoaDto.add(linkTo(methodOn(PessoasController.class).findByIdPessoa(dto.getId()))
+                .withSelfRel().expand());
+
+        response.setData(pessoaDto);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
-
-    }
-
-    //Delete
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
-
-    }
-
-    //Put
-    @PutMapping
-    public void update() {
-
 
     }
 
