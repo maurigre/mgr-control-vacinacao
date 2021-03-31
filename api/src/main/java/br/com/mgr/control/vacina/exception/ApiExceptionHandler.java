@@ -3,7 +3,6 @@ package br.com.mgr.control.vacina.exception;
 import br.com.mgr.control.vacina.dto.response.ResponseError;
 import br.com.mgr.control.vacina.dto.response.ResponseErrorValid;
 import br.com.mgr.control.vacina.dto.response.ResponseErrorValidField;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +51,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
         ResponseError errors = getResponseError(ex, status);
         return new ResponseEntity<>(errors, status);
     }
@@ -60,6 +63,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({
             MethodArgumentTypeMismatchException.class,
             NumberFormatException.class,
+            PessoaInvalidUpdateException.class,
+            GrupoPrioridadeInvalidUpdateException.class,
             RuntimeException.class
     })
     public ResponseEntity<ResponseError> customHandleBadRequest(RuntimeException ex) {
@@ -70,6 +75,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({
             PessoaNotFoundException.class,
+            GrupoPrioridadeNotFoundException.class,
             Exception.class
     })
     public ResponseEntity<ResponseError> customHandleNotFound(Exception ex) {

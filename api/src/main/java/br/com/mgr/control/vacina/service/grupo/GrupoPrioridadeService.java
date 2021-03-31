@@ -1,4 +1,4 @@
-package br.com.mgr.control.vacina.dataprovider.service.grupo;
+package br.com.mgr.control.vacina.service.grupo;
 
 import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 

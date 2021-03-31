@@ -1,9 +1,9 @@
-package br.com.mgr.control.vacina.dataprovider.service.pessoa.impl;
+package br.com.mgr.control.vacina.service.pessoa.impl;
 
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dataprovider.repository.PessoaRepository;
-import br.com.mgr.control.vacina.dataprovider.service.pessoa.PessoaService;
 import br.com.mgr.control.vacina.exception.PessoaNotFoundException;
+import br.com.mgr.control.vacina.service.pessoa.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

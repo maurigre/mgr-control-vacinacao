@@ -13,5 +13,7 @@
         idade integer,
         nome varchar(255),
         telefone varchar(255),
+        is_vacinada boolean,
+        id_grupo_prioridade bigint,
         primary key (id)
     );

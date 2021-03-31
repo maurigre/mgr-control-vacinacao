@@ -1,11 +1,11 @@
 package br.com.mgr.control.vacina.controllers.v1;
 
+import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dto.PessoaDto;
 import br.com.mgr.control.vacina.dto.response.Response;
-import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
-import br.com.mgr.control.vacina.dataprovider.service.pessoa.PessoaService;
 import br.com.mgr.control.vacina.exception.PessoaInvalidUpdateException;
 import br.com.mgr.control.vacina.exception.PessoaNotFoundException;
+import br.com.mgr.control.vacina.service.pessoa.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  **/
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/api-vacinacao/v1/pessoas")
 public class PessoasController {
 
     @Autowired

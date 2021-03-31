@@ -1,7 +1,6 @@
 package br.com.mgr.control.vacina.dto;
 
 import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -1,4 +1,4 @@
-package br.com.mgr.control.vacina.dataprovider.service.pessoa;
+package br.com.mgr.control.vacina.service.pessoa;
 
 
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;

@@ -1,18 +1,16 @@
 package br.com.mgr.control.vacina.dataprovider.model;
 
 
-import lombok.*;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @EqualsAndHashCode
 @ToString
 @Table(name = "pessoas_tbl")
@@ -37,6 +35,6 @@ public class Pessoa implements Serializable {
     private Boolean isVacinada;
 
     @ManyToOne
-    @JoinColumn(name="id_grupo_prioridade")
-    private GruposPrioridades grupo;
+    @JoinColumn(name="id_grupo_prioridade", referencedColumnName = "id")
+    private GrupoPrioridade grupoPrioridade;
 }

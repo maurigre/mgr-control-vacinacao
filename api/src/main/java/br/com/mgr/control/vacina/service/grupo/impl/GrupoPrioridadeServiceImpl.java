@@ -1,8 +1,8 @@
-package br.com.mgr.control.vacina.dataprovider.service.grupo.impl;
+package br.com.mgr.control.vacina.service.grupo.impl;
 
 import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 import br.com.mgr.control.vacina.dataprovider.repository.GruposPrioridadesRepository;
-import br.com.mgr.control.vacina.dataprovider.service.grupo.GrupoPrioridadeService;
+import br.com.mgr.control.vacina.service.grupo.GrupoPrioridadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -7,7 +7,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -50,8 +52,7 @@ public class PessoaDto extends RepresentationModel<PessoaDto>{
 
 
     private Boolean isVacinada;
-
-    private GrupoPrioridade grupo;
+    private GrupoPrioridade grupoPrioridade;
 
     /**
      * Method to convert an Pessoa DTO to a Pessoa entity.
