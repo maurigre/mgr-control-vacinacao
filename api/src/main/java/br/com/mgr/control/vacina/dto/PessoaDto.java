@@ -52,7 +52,12 @@ public class PessoaDto extends RepresentationModel<PessoaDto>{
 
 
     private Boolean isVacinada;
-    private GrupoPrioridade grupoPrioridade;
+
+    @NotNull(message="Account Id cannot be null")
+    private Long grupoPrioridadeId;
+
+
+
 
     /**
      * Method to convert an Pessoa DTO to a Pessoa entity.

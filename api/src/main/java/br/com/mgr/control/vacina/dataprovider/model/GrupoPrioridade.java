@@ -1,8 +1,6 @@
 package br.com.mgr.control.vacina.dataprovider.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +8,9 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @EqualsAndHashCode(of = {"id", "nome"})
 @Table(name = "grupos_prioridades_tbl")
@@ -24,4 +25,7 @@ public class GrupoPrioridade implements Serializable {
 
     private String descricao;
 
+    public GrupoPrioridade(Long id) {
+        this.id = id;
+    }
 }
