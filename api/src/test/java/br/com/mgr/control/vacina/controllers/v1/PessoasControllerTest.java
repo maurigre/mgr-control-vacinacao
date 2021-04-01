@@ -8,6 +8,7 @@ import br.com.mgr.control.vacina.service.pessoa.PessoaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -57,7 +59,8 @@ public class PessoasControllerTest {
     static final String URL = "/api-vacinacao/v1/pessoas";
 
     @Test
-    public void createTest() throws Exception {
+    @Order(1)
+    public void createPessoaSucessTest() throws Exception {
 
         BDDMockito.given(service.save(Mockito.any(Pessoa.class)))
                 .willReturn(getMockPessoa());
@@ -72,13 +75,31 @@ public class PessoasControllerTest {
                 .andExpect(jsonPath("$.data.id").value(ID))
                 .andExpect(jsonPath("$.data.nome").value(NOME))
                 .andExpect(jsonPath("$.data.cpf").value(CPF))
-                .andExpect(jsonPath("$.data.dataNascimento").value(DATA_NASCIMENTO))
+                .andExpect(jsonPath("$.data.dataNascimento").value(String.valueOf(DATA_NASCIMENTO)))
                 .andExpect(jsonPath("$.data.idade").value(IDADE))
                 .andExpect(jsonPath("$.data.email").value(EMAIL))
                 .andExpect(jsonPath("$.data.telefone").value(TELEFONE))
                 .andExpect(jsonPath("$.data.isVacinada").value(IS_VACINADA))
                 .andExpect(jsonPath("$.data.grupoPrioridadeId").value(ID_GRUPO_PRIORITARIO));
     }
+
+    @Test
+    @Order(2)
+    public void createPessoaInvalidParameterTest() throws Exception {
+        BDDMockito.given(service.save(Mockito.any(Pessoa.class)))
+                .willReturn(getMockPessoa());
+
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post(URL)
+                        .content(getJsonPayLoad(ID, NOME, CPF, DATA_NASCIMENTO, IDADE, "test",TELEFONE, IS_VACINADA, ID_GRUPO_PRIORITARIO))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$.errors[0].field").value("email"));
+
+    }
+
 
 
     public Pessoa getMockPessoa(){

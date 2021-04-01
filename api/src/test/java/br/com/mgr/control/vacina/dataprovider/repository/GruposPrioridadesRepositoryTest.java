@@ -3,6 +3,7 @@ package br.com.mgr.control.vacina.dataprovider.repository;
 
 import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -37,6 +38,7 @@ public class GruposPrioridadesRepositoryTest  {
     }
 
     @Test
+    @Order(1)
     public void saveTest(){
 
         GrupoPrioridade grupoPrioridades = GrupoPrioridade.builder()

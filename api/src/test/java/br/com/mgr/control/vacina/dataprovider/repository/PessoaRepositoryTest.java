@@ -3,6 +3,7 @@ package br.com.mgr.control.vacina.dataprovider.repository;
 import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -59,6 +60,7 @@ public class PessoaRepositoryTest  {
     }
 
     @Test
+    @Order(1)
     public void saveTest(){
 
         Pessoa pessoa = Pessoa.builder()
@@ -80,6 +82,7 @@ public class PessoaRepositoryTest  {
     }
 
     @Test
+    @Order(2)
     public void findByIdTest(){
 
         Optional<Pessoa> pessoa = repository.findById(1L);

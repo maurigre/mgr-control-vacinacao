@@ -3,6 +3,7 @@ package br.com.mgr.control.vacina.service.grupo;
 import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 import br.com.mgr.control.vacina.dataprovider.repository.GruposPrioridadesRepository;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -42,6 +43,7 @@ public class GrupoPrioridadeServiceTest {
     }
 
     @Test
+    @Order(1)
     public void saveTest(){
         BDDMockito.given(repository.save(Mockito.any(GrupoPrioridade.class)))
                 .willReturn(getMockGrupoPrioridade());
@@ -52,6 +54,7 @@ public class GrupoPrioridadeServiceTest {
     }
 
     @Test
+    @Order(2)
     public void findById() {
         BDDMockito.given(repository.findById(Mockito.anyLong()))
                 .willReturn(Optional.of(new GrupoPrioridade()));

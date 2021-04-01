@@ -5,6 +5,7 @@ import br.com.mgr.control.vacina.dataprovider.model.GrupoPrioridade;
 import br.com.mgr.control.vacina.dataprovider.model.Pessoa;
 import br.com.mgr.control.vacina.dataprovider.repository.PessoaRepository;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -47,6 +48,7 @@ public class PessoaServiceTest {
     }
 
     @Test
+    @Order(1)
     public void saveTest() {
         BDDMockito.given(repository.save(Mockito.any(Pessoa.class)))
                 .willReturn(getMockPessoa());
@@ -58,6 +60,7 @@ public class PessoaServiceTest {
     }
 
     @Test
+    @Order(2)
     public void findByIdTest() {
         BDDMockito.given(repository.findById(Mockito.anyLong()))
                 .willReturn(Optional.of(new Pessoa()));
